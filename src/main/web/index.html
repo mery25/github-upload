@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            font-size: 15px;
+        }
+        body {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1rem;
+            padding: 1rem;
+            min-width: 45%
+        }
+        form > * {
+            margin-top: 0.25rem;
+        }
+        form > label {
+            margin-top: 1rem;
+        }
+        form > input[type="checkbox"] {
+            margin-bottom: 0;
+        }
+        #recycling-actions {
+            display: flex;
+            flex-direction: column;
+        }
+        img {
+            margin-bottom: 1rem;
+        }
+        #submit {
+            background-color: #009900
+        }
+        fieldset {
+            margin-top: 2rem;
+            margin-left: -0.04em;
+            margin-right: -0.04em;
+            border-width: 1px;
+            border-style: inset;
+            border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
+            border-image: initial;
+            border-radius: 0.25rem;
+        }
+        legend {
+            border: 1px transparent solid;
+            margin-left: -1.7em;
+            padding: 0.2em 0.8em;
+        }
+        .container {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            }
+
+        /* Hide the browser's default checkbox */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        /* Create a custom checkbox */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+        }
+
+        .radio-checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+            border-radius: 50%;
+        }
+
+        .container input:hover ~ .radio-checkmark {
+            background-color: #ccc;
+        }
+
+        .container input:checked ~ .radio-checkmark {
+            background-color: #009900;
+        }
+
+        .radio-checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .container input:checked ~ .radio-checkmark:after {
+            display: block;
+        }
+
+        /* Style the indicator (dot/circle) */
+        .container .radio-checkmark:after {
+            top: 6px;
+            left: 6px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .container input:hover ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .container input:checked ~ .checkmark {
+            background-color: #009900;
+        }
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .container .checkmark:after {
+            left: 6px;
+            top: 2.5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .custom-select {
+            position: relative;
+            font-family: Arial;
+        }
+
+        .custom-select select {
+            display: none; /*hide original SELECT element: */
+        }
+
+  /*       select {
+            width: 100%;
+            height: 50px;
+            font-size: 100%;
+            cursor: pointer;
+            border-radius: 0;
+            background-color: #eee;
+            border: none;
+            border-bottom: 2px solid #eee;
+            color: black;
+            padding: 10px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 10px;
+        } */
+
+        /* For IE <= 11 */
+      /*   select::-ms-expand {
+            display: none; 
+        }
+
+        select:hover {
+            background-color: #ccc;
+            border-bottom-color: #DCDCDC;
+        }
+
+        select:valid {
+            color: white;
+            background-color: #009900;
+            border-bottom-color: #DCDCDC;
+        } */
+
+        .form-input {
+            display: block;
+            padding: 0.375rem 0.75rem;
+            color: black;
+            background-color: #eee;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-input:valid, .form-input:active {
+            color: white !important;
+            background-color: #009900 !important;
+            border-bottom-color: #DCDCDC !important;
+        }
+
+        input:-webkit-autofill, input:-webkit-autofill:focus {
+            color: white !important;
+            background-color: #009900 !important;
+            border-bottom-color: #DCDCDC !important;
+        }
+
+        .name:not(:placeholder-shown) {
+            border: 1px solid red !important;
+            color: white !important;
+            background: #009900 !important;
+        }
+        #comments {
+            border-radius: 0.25rem;
+        }
+        #submit {
+            border-radius: 0.25rem;
+            margin-top: 2rem;
+            font-size: 15px;
+            color: white;
+            background: #009900;
+            border: none;
+            color: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Recycling Survey Form</h1>
+    <img src="recycle.png" alt="Recycle icon" width="100" height="100">
+    <p id="description">Answer this survey for informational purposes only</p>
+    <form  id="survey-form" action="">
+        <label id="name-label" for="name">Name</label>
+        <input type="text" name="name" id="name" placeholder="Enter your name..." required class="form-input">
+        <label id="email-label" for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Enter your email..." required class="form-input">
+        <label id="number-label" for="number">Age</label>
+        <input type="number" name="number" id="number" placeholder="Enter your age..." min="0" max="100" required class="form-input">
+        <label id="country-label" for="custom-select">Country</label>
+        <select name="country" id="dropdown" required  class="form-input">
+            <option value="" disabled selected>Select your country...</option>
+            <option value="spain">Espanya</option>
+            <option value="andorra">Andorra</option>
+            <option value="france">France</option>
+        </select>
+        <fieldset>
+            <legend>Gender</legend>
+            <label for="male" class="container">
+                <input id="male" type="radio" name="gender-option" value="male"> Male
+                <span class="radio-checkmark"></span>
+            </label>
+            <label for="female" class="container">
+                <input id="female" type="radio" name="gender-option" value="female"> Female
+                <span class="radio-checkmark"></span>
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Do you recycle at home?</legend>
+            <label for="option-yes" class="container">
+                <input id="option-yes" type="radio" name="yes-no-option" value="false"> Yes
+                <span class="radio-checkmark"></span>
+            </label>
+            <label for="option-no" class="container">
+                <input id="option-no" type="radio" name="yes-no-option" value="true"> No
+                <span class="radio-checkmark"></span>
+            </label>
+        </fieldset>
+        <fieldset id="recycling-actions">
+            <legend>Choose any action you do to recycle</legend>
+            <label for="recycling-action-1" class="container">
+                <input id="recycling-action-1" type="checkbox" name="recycling-actions" value="recycling-action-1" > Choose items with less packaging
+                <span class="checkmark"></span>
+            </label>
+            <label for="recycling-action-2" class="container">
+                <input id="recycling-action-2" type="checkbox" name="recycling-actions" value="recycling-action-2"> Carry a reusable water bottle
+                <span class="checkmark"></span>
+            </label>
+            <label for="recycling-action-3" class="container">
+                <input id="recycling-action-3" type="checkbox" name="recycling-actions" value="recycling-action-3"> Donate items to be thrift store/donation drives
+                <span class="checkmark"></span>
+            </label>
+            <label for="recycling-action-4" class="container">
+                <input id="recycling-action-4" type="checkbox" name="recycling-actions" value="recycling-action-4"> Shop for items at thrift stores
+                <span class="checkmark"></span>
+            </label>
+            <label for="recycling-action-5" class="container">
+                <input id="recycling-action-5" type="checkbox" name="recycling-actions" value="recycling-action-5"> Repair broken items whenever possible instead of buying a new item
+                <span class="checkmark"></span>
+            </label>    
+            <label for="recycling-action-6" class="container">
+                <input id="recycling-action-6" type="checkbox" name="recycling-actions" value="recycling-action-6"> Bring reusable bags when you go shopping
+                <span class="checkmark"></span>
+            </label>
+            <label for="recycling-action-7" class="container">
+                <input id="recycling-action-7" type="checkbox" name="recycling-actions" value="recycling-action-7"> Bring your own mug to coffee shops
+                <span class="checkmark"></span>
+            </label>
+        </fieldset>
+        <label id="textarea-label" for="comments">Additional comments</label>
+        <textarea name="comments" id="comments" cols="30" rows="10"></textarea>
+        <input id="submit" type="submit" value="Send">
+    </form>
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+</body>
+</html>
